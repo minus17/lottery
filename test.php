@@ -46,5 +46,9 @@ spl_autoload_register('Loader::autoload'); // 注册自动加载
 
 //$res = Lottery\ShuangseqiuWinning::winning([['01','02','03','04','05','06'],['07']], [['01','03','08','09'],['02','04','10','18'],['07','16']], 'reqOpt');
 //$res = Lottery\ShuangseqiuWinning::winning([['01','02','03','04','05','06'],['07']], [['03','04','05','06','07','08'],['07']], 'single');
-$res = Lottery\ShuangseqiuWinning::winning([['01','02','03','04','05','06'],['07']], [['03','04','05','06','07','08','09'],['07','15']], 'multiple');
+//$res = Lottery\ShuangseqiuWinning::winning([['01','02','03','04','05','06'],['07']], [['03','04','05','06','07','08','09'],['07','15']], 'multiple');
+
+$res = Lottery\QixingcaiWinning::winning([1,2,3,4,5,6,7],[[1,2],[2,4],[3,0],[7,8,9],[1],[8],[0]], 'multiple');
+//$res = Lottery\QixingcaiWinning::winning([1,2,3,4,5,6,7],[[1],[2],[0],[7],[1],[6],[7]], 'single');
+
 var_dump($res);

@@ -1,12 +1,12 @@
 {
-    "name": "lottery/winning",
+    "name": "minus17/chinese-lottery-winning",
     "description": "chinese lottery winning",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "wangtao",
-            "email": "wangtao@p2peye.com"
+            "name": "minus17",
+            "email": "minus17@126.com"
         }
     ],
     "require": {

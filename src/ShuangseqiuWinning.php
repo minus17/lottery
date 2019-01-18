@@ -9,9 +9,9 @@
  */
 namespace Lottery;
 
-class ShuangseqiuWinning implements WinningInterface{
+class ShuangseqiuWinning extends WinningAbstract{
     use LotteryCombine;
-    public static $winnings= array(
+    static $winnings= array(
         1 => array(array(6,1)),
         2 =>array(array(6,0)),
         3 =>array(array(5,1)),
@@ -112,7 +112,9 @@ class ShuangseqiuWinning implements WinningInterface{
             foreach($winning as $item){
                 $curLevelCount += $redWin[$item[0]] * $blueWin[$item[1]];
             }
-            $res[$level] = $curLevelCount;
+            if($curLevelCount > 0){
+                $res[$level] = $curLevelCount;
+            }
         }
         return $res;
     }

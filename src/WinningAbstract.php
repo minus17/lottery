@@ -1,6 +1,6 @@
 <?php
 /*
- * 彩票命中接口
+ * 彩票命中
  *
  * (c) wangtao <wangtao@p2peye.com>
  *
@@ -9,10 +9,10 @@
  */
 namespace Lottery;
 
-interface WinningInterface{
-
+abstract class WinningAbstract{
+    static $winnings;
     /*
      * 命中计算
      * */
-    public static function winning($bonus, $bet, $betMethod);
+    public static function winning($bonus, $bet, $betMethod){}
 }
