@@ -34,7 +34,7 @@ class QixingcaiWinning extends WinningAbstract{
     /*
      * 单式中奖计算
      * */
-    public function winningSingle($bonus, $bet){
+    public static function winningSingle($bonus, $bet){
         $maxHit = 0;
         $curHit = 0;
         //按位比对,如果不连续，$maxHit
@@ -57,7 +57,7 @@ class QixingcaiWinning extends WinningAbstract{
     /*
      * 复式中奖计算
      * */
-    public function winningMultiple($bonus, $bet){
+    public static function winningMultiple($bonus, $bet){
         $betSet = LotteryMath::cartesian($bet);
         $res = array();
         foreach($betSet as $betItem){

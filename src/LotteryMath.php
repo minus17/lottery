@@ -34,7 +34,7 @@ class LotteryMath{
     /**
      * 阶乘
      */
-    function factorial($n) {
+    public static function factorial($n) {
         //array_product 计算并返回数组的乘积
         //range 创建一个包含指定范围的元素的数组
         return array_product(range(1, $n));
@@ -43,14 +43,17 @@ class LotteryMath{
     /**
      * 排列 n >= m  m,n均为自然数
      */
-    function A($n, $m) {
+    public static function A($n, $m) {
+        if($n == $m){
+            return self::factorial($n);
+        }
         return self::factorial($n)/self::factorial($n-$m);
     }
 
     /**
      * 组合
      */
-    function C($n, $m) {
+    public static function C($n, $m) {
         if($n < $m){
             return false;
         }

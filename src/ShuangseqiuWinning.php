@@ -38,7 +38,7 @@ class ShuangseqiuWinning extends WinningAbstract{
     /*
      * 单式中奖计算
      * */
-    public function winningSingle($bonus, $bet){
+    public static function winningSingle($bonus, $bet){
         $reqHits = $backHits = 0;
         foreach ($bet['0'] as $betItem){
             if(in_array($betItem, $bonus[0])){
@@ -56,7 +56,7 @@ class ShuangseqiuWinning extends WinningAbstract{
     /*
      * 复式中奖计算
      * */
-    public function winningMultiple($bonus, $bet){
+    public static function winningMultiple($bonus, $bet){
         $opt = count($bet['0']);
         $back = count($bet['1']);
         $optHits = $backHits = 0;
@@ -76,7 +76,7 @@ class ShuangseqiuWinning extends WinningAbstract{
     /*
      * 胆拖中奖计算
      * */
-    public function winningReqOtp($bonus, $bet){
+    public static function winningReqOtp($bonus, $bet){
         $req = count($bet['0']);
         $opt = count($bet['1']);
         $back = count($bet['2']);

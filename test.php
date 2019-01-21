@@ -39,16 +39,30 @@ class Loader
     }
 }
 spl_autoload_register('Loader::autoload'); // 注册自动加载
-/** 单式如: 01-02-03-04-05-06-16
-* 复式如: 01|10-02|12|14-03-04-05-06-15|16
-* 胆拖如: 03-04-05,05-06-07-08-09-10,15|16
- */
 
-//$res = Lottery\ShuangseqiuWinning::winning([['01','02','03','04','05','06'],['07']], [['01','03','08','09'],['02','04','10','18'],['07','16']], 'reqOpt');
+//双色球
+//单式
 //$res = Lottery\ShuangseqiuWinning::winning([['01','02','03','04','05','06'],['07']], [['03','04','05','06','07','08'],['07']], 'single');
+//复式
 //$res = Lottery\ShuangseqiuWinning::winning([['01','02','03','04','05','06'],['07']], [['03','04','05','06','07','08','09'],['07','15']], 'multiple');
+//胆拖
+//$res = Lottery\ShuangseqiuWinning::winning([['01','02','03','04','05','06'],['07']], [['01','03','08','09'],['02','04','10','18'],['07','16']], 'reqOpt');
 
-$res = Lottery\QixingcaiWinning::winning([1,2,3,4,5,6,7],[[1,2],[2,4],[3,0],[7,8,9],[1],[8],[0]], 'multiple');
+//七星彩
+//单式
 //$res = Lottery\QixingcaiWinning::winning([1,2,3,4,5,6,7],[[1],[2],[0],[7],[1],[6],[7]], 'single');
+//复式
+//$res = Lottery\QixingcaiWinning::winning([1,2,3,4,5,6,7],[[1,2],[2,4],[3,0],[7,8,9],[1],[8],[0]], 'multiple');
+
+//福彩3D
+//单选单式
+//$res = Lottery\Fucai3DWinning::winning([1,2,3],[1,2,3], 'single');
+//$res = Lottery\Fucai3DWinning::winning([5,2,3],[2,3,5], 'singleMulti');
+//$res = Lottery\Fucai3DWinning::winning([1,2,2],[1,2,3], 'doubleMulti');
+//$res = Lottery\Fucai3DWinning::winning([2,2,2],[1,2,3,4,5], 'fullMulti');
+//$res = Lottery\Fucai3DWinning::winning([3,2,2],[3,2], 'group3Single');
+//$res = Lottery\Fucai3DWinning::winning([4,5,4],[1,2,4,5], 'group3Multi');
+//$res = Lottery\Fucai3DWinning::winning([2,3,1],[1,2,3], 'group6Single');
+//$res = Lottery\Fucai3DWinning::winning([2,3,1],[1,2,3,4,5], 'group6Multi');
 
 var_dump($res);
