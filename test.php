@@ -1,44 +1,9 @@
 <?php
-class Loader
-{
-    /* 路径映射 */
-    public static $vendorMap = array(
-        'Lottery' => './src',
-    );
+/*
+ * 测试用例
+ * */
 
-    /**
-     * 自动加载器
-     */
-    public static function autoload($class)
-    {
-        $file = self::findFile($class);
-        if (file_exists($file)) {
-            self::includeFile($file);
-        }
-    }
-
-    /**
-     * 解析文件路径
-     */
-    private static function findFile($class)
-    {
-        $vendor = substr($class, 0, strpos($class, '\\')); // 顶级命名空间
-        $vendorDir = self::$vendorMap[$vendor]; // 文件基目录
-        $filePath = substr($class, strlen($vendor)) . '.php'; // 文件相对路径
-        return strtr($vendorDir . $filePath, '\\', DIRECTORY_SEPARATOR); // 文件标准路径
-    }
-
-    /**
-     * 引入文件
-     */
-    private static function includeFile($file)
-    {
-        if (is_file($file)) {
-            include $file;
-        }
-    }
-}
-spl_autoload_register('Loader::autoload'); // 注册自动加载
+require_once '../../autoload.php';
 
 //大乐透
 //单式
@@ -72,12 +37,19 @@ spl_autoload_register('Loader::autoload'); // 注册自动加载
 //福彩3D
 //单选单式
 //$res = Lottery\LotteryHelper::win(221, [1,2,3],[1,2,3]);
+//单选单复式
 //$res = Lottery\LotteryHelper::win(222, [5,2,3],[2,3,5]);
-//$res = Lottery\LotteryHelper::win(223, [1,2,2],[1,2,3]);
+//单选双复式
+//$res = Lottery\LotteryHelper::win(223, [1,2,2],[1,2]);
+//单选全复式
 //$res = Lottery\LotteryHelper::win(224, [2,2,2],[1,2,3,4,5]);
+//组选3单式
 //$res = Lottery\LotteryHelper::win(225, [3,2,2],[3,2]);
+//组选3复式
 //$res = Lottery\LotteryHelper::win(226, [4,5,4],[1,2,4,5]);
+//组选6单式
 //$res = Lottery\LotteryHelper::win(227, [2,3,1],[1,2,3]);
+//组选6复式
 //$res = Lottery\LotteryHelper::win(228, [2,3,1],[1,2,3,4,5]);
 
 var_dump($res);
