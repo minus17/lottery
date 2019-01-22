@@ -20,21 +20,9 @@ class QixingcaiWinning extends WinningAbstract{
     );
 
     /*
-     * 命中解析
-     * */
-    public static function winning($bonus, $bet, $betMethod){
-        switch ($betMethod){
-            case 'single':
-                return static::winningSingle($bonus, $bet); //单式
-            default:
-                return static::winningMultiple($bonus, $bet); //复式
-        }
-    }
-
-    /*
      * 单式中奖计算
      * */
-    public static function winningSingle($bonus, $bet){
+    public static function onePickForSingleBet($bonus, $bet){
         $maxHit = 0;
         $curHit = 0;
         //按位比对,如果不连续，$maxHit
@@ -57,7 +45,7 @@ class QixingcaiWinning extends WinningAbstract{
     /*
      * 复式中奖计算
      * */
-    public static function winningMultiple($bonus, $bet){
+    public static function onePickForMultiBet($bonus, $bet){
         $betSet = LotteryMath::cartesian($bet);
         $res = array();
         foreach($betSet as $betItem){

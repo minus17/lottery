@@ -21,24 +21,9 @@ class ShuangseqiuWinning extends WinningAbstract{
     );
 
     /*
-     * 命中解析
-     * */
-    public static function winning($bonus, $bet, $betMethod){
-        switch ($betMethod){
-            case 'single':
-                return static::winningSingle($bonus, $bet); //单式
-            case 'multiple':
-                return static::winningMultiple($bonus, $bet); //复式
-            default:
-                return static::winningReqOtp($bonus, $bet); //胆拖
-
-        }
-    }
-
-    /*
      * 单式中奖计算
      * */
-    public static function winningSingle($bonus, $bet){
+    public static function onePickForSingleBet($bonus, $bet){
         $reqHits = $backHits = 0;
         foreach ($bet['0'] as $betItem){
             if(in_array($betItem, $bonus[0])){
@@ -56,7 +41,7 @@ class ShuangseqiuWinning extends WinningAbstract{
     /*
      * 复式中奖计算
      * */
-    public static function winningMultiple($bonus, $bet){
+    public static function onePickForMultiBet($bonus, $bet){
         $opt = count($bet['0']);
         $back = count($bet['1']);
         $optHits = $backHits = 0;
@@ -76,7 +61,7 @@ class ShuangseqiuWinning extends WinningAbstract{
     /*
      * 胆拖中奖计算
      * */
-    public static function winningReqOtp($bonus, $bet){
+    public static function onePickForOptBet($bonus, $bet){
         $req = count($bet['0']);
         $opt = count($bet['1']);
         $back = count($bet['2']);

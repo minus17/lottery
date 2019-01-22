@@ -9,7 +9,7 @@
  */
 namespace Lottery;
 
-class Fucai3DWinning extends WinningAbstract{
+class Fucai3DWinning{
     static $winnings= array(
         7 => 1,
         6 => 2,
@@ -20,34 +20,10 @@ class Fucai3DWinning extends WinningAbstract{
     );
 
     /*
-     * 命中解析
-     * */
-    public static function winning($bonus, $bet, $betMethod){
-        switch ($betMethod){
-            case 'single':
-                return static::winningSingle($bonus, $bet); //单式
-            case 'singleMulti':
-                return static::winningSingleMulti($bonus, $bet); //单选单复式
-            case 'doubleMulti':
-                return static::winningDoubleMulti($bonus, $bet); //单选双复式
-            case 'fullMulti':
-                return static::winningFullMulti($bonus, $bet); //单选全复式
-            case 'group3Single':
-                return static::winningGroup3Single($bonus, $bet); //组选3单式
-            case 'group3Multi':
-                return static::winningGroup3Multi($bonus, $bet); //组选3复式
-            case 'group6Single':
-                return static::winningGroup6Single($bonus, $bet); //组选6单式
-            default:
-                return static::winningGroup6Multi($bonus, $bet); //组选6复式
-        }
-    }
-
-    /*
      * 单式中奖计算
      * eg. [1,2,3] [2,3,4]按位比较，顺序和数字全部一样为中奖
      * */
-    public static function winningSingle($bonus, $bet){
+    public static function onePickForSingleBet($bonus, $bet){
         $hit = 1;
         //按位比对,如果不连续，$maxHit
         for($i = 0; $i < 3;$i ++){
@@ -62,7 +38,7 @@ class Fucai3DWinning extends WinningAbstract{
      * 单选单复式中奖计算
      * 单选单复式是3D游戏复式投注的一种方式，是指从0-9共10个数字中，选择3—8个进行包括所选号码且三位数各不相同的单选投注。
      * */
-    public static function winningSingleMulti($bonus, $bet){
+    public static function onePickForSingleMultiBet($bonus, $bet){
         $hit = 0;
         $bonusUnique = array_unique($bonus);
         //如果不是全不一样，直接判定未中奖
@@ -88,7 +64,7 @@ class Fucai3DWinning extends WinningAbstract{
      * 单选双复式中奖计算
      * 单选双复式是指单选全复式的号码中有且仅有两位数相同的组合进行单式投注
      * */
-    public static function winningDoubleMulti($bonus, $bet){
+    public static function onePickForDoubleMultiBet($bonus, $bet){
         $bonusUnique = array_unique($bonus);
         //如果全不一样或全一样直接判定未中奖
         if(count($bonusUnique) != 2){
@@ -115,7 +91,7 @@ class Fucai3DWinning extends WinningAbstract{
      * 单选双复式是指单选全复式的号码中有且仅有两位数相同的组合进行单式投注
      * 相当于3位的七星彩
      * */
-    public static function winningFullMulti($bonus, $bet){
+    public static function onePickForFullMultiBet($bonus, $bet){
         $bonusUnique = array_unique($bonus);
         $hit = 0;
         $hits = 0;
@@ -137,7 +113,7 @@ class Fucai3DWinning extends WinningAbstract{
      * 组选3单式中奖计算
      * 只要数都出现在就中奖
      * */
-    public function winningGroup3Single($bonus, $bet){
+    public function group3PickForSingleBet($bonus, $bet){
         $hit = 1;
         $bonusUnique = array_unique($bonus);
         //如果不是有2个数一样，直接判定未中奖
@@ -159,7 +135,7 @@ class Fucai3DWinning extends WinningAbstract{
      * 组选3复式中奖计算
      * 只要有2个数出现就中奖
      * */
-    public function winningGroup3Multi($bonus, $bet){
+    public function group3PickForMultiBet($bonus, $bet){
         $hit = 0;
         $bonusUnique = array_unique($bonus);
         //如果不是有2个数一样，直接判定未中奖
@@ -186,7 +162,7 @@ class Fucai3DWinning extends WinningAbstract{
      * 组选6单式中奖计算
      * 只要数都出现在就中奖
      * */
-    public function winningGroup6Single($bonus, $bet){
+    public function group6PickForSingleBet($bonus, $bet){
         $hit = 1;
         $bonusUnique = array_unique($bonus);
         //如果不是有3个数都不同，直接判定未中奖
@@ -208,7 +184,7 @@ class Fucai3DWinning extends WinningAbstract{
      * 组选6复式中奖计算
      * 只要有3个数出现就中奖
      * */
-    public function winningGroup6Multi($bonus, $bet){
+    public function group6PickForMultiBet($bonus, $bet){
         $hit = 0;
         $bonusUnique = array_unique($bonus);
         //如果不是有2个数一样，直接判定未中奖
@@ -219,7 +195,7 @@ class Fucai3DWinning extends WinningAbstract{
             //单式只要有一位数不一致（不全等）就每中
             foreach ($bet as $betItem){
                 if(in_array($betItem, $bonusUnique)){
-                    $hit++;
+                    $hits++;
                 }
                 if($hits == 3){
                     $hit = 1;
