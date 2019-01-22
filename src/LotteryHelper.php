@@ -22,8 +22,12 @@ class LotteryHelper{
         '113' => array('Lottery\DaletouWinning', 'onePickForOptBet'), //体彩大乐透胆拖
         '121' => array('Lottery\QixingcaiWinning', 'onePickForSingleBet'), //体彩七星彩单式
         '122' => array('Lottery\QixingcaiWinning', 'onePickForMultiBet'), //体彩七星彩复式
-        '131' => array('Lottery\Pailie3Winning', 'onePickForSingleBet'), //体彩排列3单式
-        '132' => array('Lottery\Pailie3Winning', 'onePickForMultiBet'), //体彩排列3复式
+        '131' => array('Lottery\Pailie3Winning', 'onePickForSingleBet'), //体彩排列3直选单式
+        '132' => array('Lottery\Pailie3Winning', 'onePickForMultiBet'), //体彩排列3直选复式
+        '133' => array('Lottery\Pailie3Winning', 'group3PickForSingleBet'), //体彩排列3组3单式
+        '134' => array('Lottery\Pailie3Winning', 'group3PickForMultiBet'), //体彩排列3组3复式
+        '135' => array('Lottery\Pailie3Winning', 'group6PickForMultiBet'), //体彩排列3组6复式
+        '136' => array('Lottery\Pailie3Winning', 'group6PickForMultiBet'), //体彩排列3组6复式
         '141' => array('Lottery\Pailie5Winning', 'onePickForSingleBet'), //体彩排列5单式
         '142' => array('Lottery\Pailie5Winning', 'onePickForMultiBet'), //体彩排列5复式
         '211' => array('Lottery\ShuangseqiuWinning', 'onePickForSingleBet'), //福彩双色球单式

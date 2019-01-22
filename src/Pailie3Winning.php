@@ -1,6 +1,6 @@
 <?php
 /*
- * 七星彩命中计算
+ * 排列3命中计算
  *
  * (c) wangtao <wangtao@p2peye.com>
  *
@@ -9,10 +9,10 @@
  */
 namespace Lottery;
 
-class Fucai3DWinning{
+class Pailie3Winning{
 
     /*
-     * 单式中奖计算
+     * 直选单式中奖计算
      * eg. [1,2,3] [2,3,4]按位比较，顺序和数字全部一样为中奖
      * */
     public static function onePickForSingleBet($bonus, $bet){
@@ -27,79 +27,25 @@ class Fucai3DWinning{
     }
 
     /*
-     * 单选单复式中奖计算
-     * 单选单复式是3D游戏复式投注的一种方式，是指从0-9共10个数字中，选择3—8个进行包括所选号码且三位数各不相同的单选投注。
+     * 直选复式中奖计算
+     * 排列三直选复式：当百位号码、十位号码、个位号码中至少有一个位选择号码的个数多于一个，组成多注投注号码的投注，即为排列三直选复式投注。
      * */
-    public static function onePickForSingleMultiBet($bonus, $bet){
-        $hit = 0;
-        $bonusUnique = array_unique($bonus);
-        //如果不是全不一样，直接判定未中奖
-        if(count($bonusUnique) != 3){
-            return false;
-        }
-        $hits = 0;
-        foreach ($bet as $betItem){
-            if(in_array($betItem, $bonus)){
-                $hits ++;
-            }
-            if($hits == 3){
-                $hit = 1;
-                break;
-            }
-        }
 
-        $total = LotteryMath::A(count($bet), 3);
-        return array('total' => $total, 'hit' => $hit);
-    }
-
-    /*
-     * 单选双复式中奖计算
-     * 单选双复式是指单选全复式的号码中有且仅有两位数相同的组合进行单式投注
-     * */
-    public static function onePickForDoubleMultiBet($bonus, $bet){
-        $bonusUnique = array_unique($bonus);
-        //如果全不一样或全一样直接判定未中奖
-        if(count($bonusUnique) != 2){
-            return false;
-        }
-        $hit = 0;
-        $hits = 0;
-        foreach ($bet as $betItem){
-            if(in_array($betItem, $bonusUnique)){
-                $hits ++;
-            }
-            if($hits == 2){
-                $hit = 1;
-                break;
+    public static function onePickForMultiBet($bonus, $bet){
+        $betSet = LotteryMath::cartesian($bet);
+        $hit = array();
+        foreach($betSet as $betItem){
+            $curHit = self::onePickForSingleBet($bonus, $betItem);
+            if($curHit['hit']){
+                $curLevel = key($curHit['hit']);
+                if(isset($hit[$curLevel])){
+                    $hit[$curLevel] += current($curHit['hit']);
+                }else{
+                    $hit[$curLevel] = current($curHit['hit']);
+                }
             }
         }
-
-        $total = LotteryMath::C(count($bet), 2) * 6;
-        return array('total' => $total, 'hit' => $hit);
-    }
-
-    /*
-     * 单选全复式中奖计算
-     * 即选择一组2～10位长度的号码，所包串中不允许重复号码
-     * 例如单选全复式123，则其意义为：个位的选号范围为123，十位的选号范围为123，百位的选号范围为123的所有组合
-     * 111、222、333、112、121、211、113、131、311、221、212、122、223、232、322、331、313、133、332、323、233、123、132、213、231、312、321投注注数3*3*3＝27
-     * */
-    public static function onePickForFullMultiBet($bonus, $bet){
-        $bonusUnique = array_unique($bonus);
-        $hit = 0;
-        $hits = 0;
-        foreach ($bet as $betItem){
-            if(in_array($betItem, $bonusUnique)){
-                $hits ++;
-            }
-            if($hits == count($bonusUnique)){
-                $hit = 1;
-                break;
-            }
-        }
-        //3个都不一样的全排列
-        $total = pow(count($bet), 3);
-        return array('total' => $total, 'hit' => $hit);
+        return array('total' => count($betSet), 'hit' => $hit);
     }
 
     /*
