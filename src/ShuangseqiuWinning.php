@@ -9,7 +9,7 @@
  */
 namespace Lottery;
 
-class ShuangseqiuWinning extends WinningAbstract{
+class ShuangseqiuWinning{
     use LotteryCombine;
     static $winnings= array(
         1 => array(array(6,1)),
@@ -35,7 +35,7 @@ class ShuangseqiuWinning extends WinningAbstract{
                 $backHits ++;
             }
         }
-        return self::parseHit(6, $reqHits, 0, 0, 1, $backHits);
+        return array('total' => 1, 'hit' => self::parseHit(6, $reqHits, 0, 0, 1, $backHits));
     }
 
     /*
@@ -55,7 +55,8 @@ class ShuangseqiuWinning extends WinningAbstract{
                 $backHits ++;
             }
         }
-        return self::parseHit(0, 0, $opt, $optHits, $back, $backHits);
+        $total = LotteryMath::C(count($bet['0']), 6) * LotteryMath::C(count($bet['1']), 1);
+        return array('total' => $total, 'hit' => self::parseHit(0, 0, $opt, $optHits, $back, $backHits));
     }
 
     /*
@@ -81,7 +82,8 @@ class ShuangseqiuWinning extends WinningAbstract{
                 $backHits ++;
             }
         }
-        return self::parseHit($req, $reqHits, $opt, $optHits, $back, $backHits);
+        $total = LotteryMath::C(count($bet[1]), 6 - count($bet[0])) * LotteryMath::C(count($bet['2']), 1);
+        return array('total' => $total, 'hit' => self::parseHit($req, $reqHits, $opt, $optHits, $back, $backHits));
     }
 
     /*

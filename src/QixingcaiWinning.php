@@ -9,7 +9,7 @@
  */
 namespace Lottery;
 
-class QixingcaiWinning extends WinningAbstract{
+class QixingcaiWinning{
     static $winnings= array(
         7 => 1,
         6 => 2,
@@ -35,11 +35,11 @@ class QixingcaiWinning extends WinningAbstract{
                 $curHit = 0;
             }
         }
+        $hit = array();
         if(isset(self::$winnings[$maxHit])){
-            return self::$winnings[$maxHit];
-        }else{
-            return false;
+            $hit = array(self::$winnings[$maxHit] => 1);
         }
+        return array('total' => 1, 'hit' => $hit);
     }
 
     /*
@@ -47,17 +47,18 @@ class QixingcaiWinning extends WinningAbstract{
      * */
     public static function onePickForMultiBet($bonus, $bet){
         $betSet = LotteryMath::cartesian($bet);
-        $res = array();
+        $hit = array();
         foreach($betSet as $betItem){
-            $curHits = self::winningSingle($bonus, $betItem);
-            if($curHits){
-                if(!isset($res[$curHits])){
-                    $res[$curHits] = 1;
+            $curHit = self::onePickForSingleBet($bonus, $betItem);
+            if($curHit['hit']){
+                $curLevel = key($curHit['hit']);
+                if(isset($hit[$curLevel])){
+                    $hit[$curLevel] += current($curHit['hit']);
                 }else{
-                    $res[$curHits] ++;
+                    $hit[$curLevel] = current($curHit['hit']);
                 }
             }
         }
-        return $res;
+        return array('total' => count($betSet), 'hit' => $hit);
     }
 }
